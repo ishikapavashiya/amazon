@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box1 {
+        width: 30%;
+        display: none;
+        margin-top: 30px;
+        padding: 10px;
+        box-shadow: 0px 3px 10px gray;
+    }
+</style>
+
+<body>
+    name:-<input type="text" id="name"><br><br>
+    desc:-<input type="text" id="desc"><br><br>
+    img:-<input type="text" id="images"><br><br>
+    price:-<input type="number" id="price"><br><br>
+    available:-<input type="text" id="available"><br><br>
+    <button onclick="addcard()">add</button>
+    <br><br>
+    <table border="1" cellspacing="1" cellpadding="10px">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>desc</th>
+                <th>images</th>
+                <th>price</th>
+                <th>available</th>
+                <th>button</th>
+                <th>button</th>
+            </tr>
+        </thead>
+        <tbody id="hbody">
+        </tbody>
+    </table>
+    <div class="box1" id="box">
+        name<input type="text" id="namee"><br><br>
+        desc<input type="text" id="descc"><br><br>
+        img<input type="text" id="image"><br><br>
+        price<input type="number" id="pricee"><br><br>
+        available<input type="text" id="availablee"><br><br>
+        <input type="hidden" id="index">
+        <button onclick="cardsave()">save</button>
+    </div>
+    <script>
+        let product = JSON.parse(localStorage.getItem("product")) || [];
+        let addcard = () => {
+            let data = {
+                name: document.getElementById("name").value,
+                des: document.getElementById("desc").value,
+                imagese: document.getElementById("images").value,
+                prices: document.getElementById("price").value,
+                availablee: document.getElementById("available").value,
+            }
+            product.push(data)
+            console.log(product);
+            localStorage.setItem("product", JSON.stringify(product))
+            location.reload()
+        }
+        let loaddata = () => {
+            let tbody = document.getElementById("tbody")
+            product.map((val, ind) => {
+                let tr = document.createElement("tr")
+                tr.innerHTML = ` <td>${val.name}</td>
+                            <td>${val.descs}</td>
+                            <td>${val.imagese}</td>
+                            <td>${val.prices}</td>
+                            <td>${val.availablee}</td>  
+                           <td><button onclick="remove(${ind})">delet</button></td>
+                           <td><button onclick="cardview(${ind})">view</button></td>`
+                hbody.appendChild(tr)
+            })
+        }
+        loaddata()
+        let remove = (ind) => {
+            let result = product[ind]
+
+            let res = product.filter((val) => val.name != result.name)
+            console.log(res);
+            localStorage.setItem("product", JSON.stringify(res))
+            location.reload()
+        }
+        let cardview = (ind) => {
+            let box1 = document.getElementById("box")
+            box1.style.display = "block"
+            let result = product[ind]
+            console.log(result);
+            let data = {
+                name: document.getElementById("namee").value = result.name,
+                des: document.getElementById("descc").value = result.des,
+                imagese: document.getElementById("image").value = result.imagese,
+                prices: document.getElementById("pricee").value = result.prices,
+                availablee: document.getElementById("availablee").value = result.availablee,
+                index: document.getElementById("index").value = ind,
+            }
+        }
+        let cardsave = () => {
+            let data = {
+                name: document.getElementById("namee").value,
+                des: document.getElementById("descc").value,
+                imagese: document.getElementById("image").value,
+                prices: document.getElementById("pricee").value,
+                availablee: document.getElementById("availablee").value,
+                index: document.getElementById("index").value,
+            }
+            console.log(data);
+            product.splice(index, 1, data)
+            localStorage.setItem("product", JSON.stringify(product))
+            location.reload()
+        }
+        loaddata()
+        let delet = (ind) => {
+            let products = product[ind]
+            let res = product.filter((val) => val.name != products.name)
+            console.log(res);
+            localStorage.setItem("product", JSON.stringify(res));
+            location.reload();
+        }
+    </script>
+
+
+</body>
+
+</html>
