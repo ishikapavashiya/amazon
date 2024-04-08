@@ -1046,9 +1046,18 @@ font-size: 13px;
     margin-top: 10px;
     margin: 15px;
 }
+.deleate table th {
+  background-color: #030303;
+  margin: 0 auto;
+}
+.total-table{
+  width: 20%;
+  text-align: center;
+  margin: 20px auto;
+}
 .main-card-data h3{
   font-size: 17px;
-  text-align: center;
+  margin-left: 89px;
   display: flex;
 }
 .main-card-data p{
@@ -1080,3 +1089,54 @@ font-size: 13px;
 
 
 /* ========================================================== */
+.increment{
+  /* border: 1px solid black; */
+  box-shadow: 0px 3px 4px gray;
+  justify-content:space-between;
+  margin: 10px auto;
+  width: 40%;
+}
+.increment span{
+  padding: 5px 5px;
+ 
+}
+.bag-table table{
+  width: 60%;
+  text-align: center;
+  margin: 100px auto 0px;
+  box-shadow: 0px 3px 10px gray;
+}
+.bag-table table img{
+  width: 30px;
+  margin: 0px auto ;
+}
+.bag-table table td:nth-child(2)
+{
+  text-align: left;
+  margin: 0 auto;
+}
+.bag-table table th{
+  background-color: #ffc170;
+}
+.bag-table table td input{
+  width: 25px;
+}
+.bag-table table td input::placeholder{
+  text-align: center;
+}
+.bag-table table td:nth-child(4) span{
+ border: 1px solid black;
+ margin: 0 10px;
+ padding: 4px 5px; 
+}
+.bag-table table td:last-child span{
+  color: #ffc170;
+}
+.total-table{
+  width: 20%;
+  text-align: center;
+  margin: 20px auto;
+}
+.total-table th:first-child{
+  background-color: #ffc170;
+}

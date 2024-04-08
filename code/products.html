@@ -307,8 +307,8 @@
   <script src="js/bootstrap.bundle.min.js"></script>
 
   <script>
-    let product = JSON.parse(localStorage.getItem("product"));
-    console.log(product);
+    let result = JSON.parse(localStorage.getItem("product"));
+    let product = result.filter((val) => val.avilabel === "ture")
 
     let loaddata = () => {
       let row = document.getElementById("row")
@@ -353,11 +353,49 @@
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let cartdata = (ind) => {
       let products = product[ind]
-      cart.push(products)
-      localStorage.setItem("cart", JSON.stringify(cart))
+      let found = false;
+
+      let i = 0;
+      do {
+        if (cart[i].Image === data.Image) {
+          if (cart[i].quantity < 10) {
+            cart[i].quantity = (cart[i].quantity || 0) + 1;
+          } else {
+            alert("Maximum quantity reached for this product!");
+          }
+          found = true;
+          break;
+        }
+        i++;
+      } while (i < cart.length);
+      if (!found) {
+        products.quantity = 1;
+        cart.push(data);
+      }
       location.reload()
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
     }
-    let count = (document.getElementById("count").innerHTML = cart.length)
+
+    function onload() {
+      if (cart.length > 0) {
+        for (let index = 0; index < cart.length; index++) {
+          let num = document.getElementById(`num${index}`);
+          if (num) {
+            let numb = num.innerHTML;
+            let price = cart[index].quantity * cart[index].price;
+            localStorage.setItem(`num${index}`, JSON.stringify(cart[index].quantity));
+            localStorage.setItem(`price${index}`, JSON.stringify(price));
+          }
+        }
+      } else {
+        console.log("Cart is empty.");
+      }
+    }
+    document.getElementById("count").innerHTML = cart.length;
+
+
   </script>
 </body>
 

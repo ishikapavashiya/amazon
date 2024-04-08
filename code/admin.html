@@ -40,6 +40,7 @@
         </tbody>
     </table>
     <div class="box1" id="box">
+        <button onclick="closedata()" id="close">close</button>
         name<input type="text" id="namee"><br><br>
         desc<input type="text" id="descc"><br><br>
         img<input type="text" id="image"><br><br>
@@ -48,7 +49,7 @@
         <input type="hidden" id="index">
         <button onclick="cardsave()">save</button>
     </div>
-    <script>
+    <!-- <script>
         let product = JSON.parse(localStorage.getItem("product")) || [];
         let addcard = () => {
             let data = {
@@ -64,23 +65,30 @@
             location.reload()
         }
         let loaddata = () => {
-            let tbody = document.getElementById("tbody")
+            let hbody = document.getElementById("hbody")
             product.map((val, ind) => {
                 let tr = document.createElement("tr")
                 tr.innerHTML = ` <td>${val.name}</td>
-                            <td>${val.descs}</td>
-                            <td>${val.imagese}</td>
-                            <td>${val.prices}</td>
-                            <td>${val.availablee}</td>  
-                           <td><button onclick="remove(${ind})">delet</button></td>
-                           <td><button onclick="cardview(${ind})">view</button></td>`
+                <td>${val.descs}</td>
+                <td>${val.imagese}</td>
+                <td>${val.prices}</td>
+                <td>${val.availablee}</td>  
+                <td><button onclick="remove(${ind})">delet</button></td>
+                <td><button onclick="cardview(${ind})">view</button></td>`
                 hbody.appendChild(tr)
             })
         }
         loaddata()
+        let delet = (ind) => {
+            let data = product[ind]
+            let res = product.filter((val) => val.name !=data.name)
+            console.log(res);
+            localStorage.setItem("product", JSON.stringify(res));
+            location.reload();
+        }
+        loaddata()
         let remove = (ind) => {
             let result = product[ind]
-
             let res = product.filter((val) => val.name != result.name)
             console.log(res);
             localStorage.setItem("product", JSON.stringify(res))
@@ -89,6 +97,7 @@
         let cardview = (ind) => {
             let box1 = document.getElementById("box")
             box1.style.display = "block"
+            
             let result = product[ind]
             console.log(result);
             let data = {
@@ -110,20 +119,83 @@
                 index: document.getElementById("index").value,
             }
             console.log(data);
+            
             product.splice(index, 1, data)
             localStorage.setItem("product", JSON.stringify(product))
             location.reload()
         }
+        let closedata=()=>{
+            let box1=document.getElementById("box")
+            box1.style.display="none"
+        }
+    </script> -->
+    <script>
+        let product = JSON.parse(localStorage.getItem("product")) || [];
+        let addcard = () => {
+            let data = {
+                name: document.getElementById("name").value,
+                des: document.getElementById("desc").value,
+                imagese: document.getElementById("images").value,
+                prices: document.getElementById("price").value,
+                availablee: document.getElementById("available").value,
+            }
+            product.push(data);
+            console.log(product);
+
+            localStorage.setItem("product", JSON.stringify(product));
+            location.reload()
+        }
+        let loaddata = () => {
+            let hbody = document.getElementById("hbody")
+            product.map((val, ind) => {
+                let tr = document.createElement("tr")
+                tr.innerHTML = ` <td>${val.name}</td>
+                <td>${val.descs}</td>
+                <td>${val.imagese}</td>
+                <td>${val.prices}</td>
+                <td>${val.availablee}</td>  
+                <td><button onclick="remove(${ind})">delet</button></td>
+                <td><button onclick="cardview(${ind})">view</button></td>`
+                hbody.appendChild(tr)
+            })
+        }
         loaddata()
-        let delet = (ind) => {
-            let products = product[ind]
-            let res = product.filter((val) => val.name != products.name)
+        let remove = (ind) => {
+            let data = product[ind]
+            let res = product.filter((val) => val.name != data.name)
             console.log(res);
             localStorage.setItem("product", JSON.stringify(res));
             location.reload();
         }
-    </script>
+        let cardview = (ind) => {
+            let box1 = document.getElementById("box")
+            box1.style.display = "block"
 
+            let data = product[ind]
+            document.getElementById("namee").value = data.name;
+            document.getElementById("descc").value = data.des;
+            document.getElementById("image").value = data.imagese;
+            document.getElementById("pricee").value = data.prices;
+            document.getElementById("availablee").value = data.availablee;
+            document.getElementById("index").value = ind;
+        }
+        let cardsave = () => {
+            let index = document.getElementById("index").value;
+            let data = {
+                name: document.getElementById("namee").value,
+                des: document.getElementById("descc").value,
+                imagese: document.getElementById("image").value,
+                prices: document.getElementById("pricee").value,
+                availablee: document.getElementById("availablee").value,
+                index: document.getElementById("index").value,
+            }
+            console.log(data);
+
+            product.splice(index, 1, data)
+            localStorage.setItem("product", JSON.stringify(product))
+            location.reload()
+        }
+    </script>
 
 </body>
 

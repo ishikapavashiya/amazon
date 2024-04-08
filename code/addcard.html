@@ -188,6 +188,35 @@
       </div>
     </div>
   </div>
+
+  <div class="deleate">
+    <table border="1" cellpadding="10" style="margin: 0 auto; color:white;">
+        <thead>
+            <tr>
+                <th>image</th>
+                <th>item</th>
+                <th>price</th>
+                <th>quantity</th>
+                <th>SubToale</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+
+        <tbody id="hbody" style="color:black;">
+
+        </tbody>
+    </table>
+</div>
+<table border="1" class="total-table">
+    <thead id="thead"  style="color:white; background-color: black;">
+    </thead>
+</table>
+<table border="1" class="total-table">
+    <thead id="thead"  style="color:white; background-color: black;">
+    </thead>
+</table>
+
+
   <footer>
     <a href="#" class="footer-title" style="margin-top: 200px;">
       Back to top
@@ -302,11 +331,11 @@
   <script src="js/swiper-bundle.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
 
-  <script>
+  <!-- <script>
     let cart = JSON.parse(localStorage.getItem("cart"));
     console.log(cart);
 
-    let loaddata = () => {
+    let loaddata = (index) => {
       let row = document.getElementById("row")
       cart.map((val, ind) => {
         let card = document.createElement("card")
@@ -345,7 +374,9 @@
             </div>`
         row.appendChild(card)
       });
+
     }
+
     loaddata()
 
     let cartdata = (ind) => {
@@ -359,7 +390,92 @@
       location.reload()
     }
     let count = (document.getElementById("count").innerHTML = cart.length)
-  </script>
+
+
+    let cartd = (ind) => {
+      let products = product[ind];
+      cart.push(products);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      document.getElementById("count").innerHTML = cart.length;
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+    }
+  </script> -->
+
+  <script>
+
+
+    let cart=JSON.parse(localStorage.getItem("cart"))
+    console.log(cart);
+
+    let data = (index) => {
+        let quantity = JSON.parse(localStorage.getItem(`num${index}`)) || 0 ;
+        let storedPrice = JSON.parse(localStorage.getItem(`price${index}`)) || 0;
+        return { quantity, storedPrice };
+        console.log(quantity);
+        console.log(storedPrice);
+
+    };
+
+    let loaddata = () => {
+        let hbody = document.getElementById("hbody");
+        cart.map((val, ind) => {
+            let { quantity,storedPrice}=data(`${ind}`)
+            let tr = document.createElement("tr");
+            
+            tr.innerHTML = ` <td><img src="${val.Image}" alt="bag image" /></td>
+            <td>${val.name}</td>
+            <td>₹${val.price}</td>
+            <td>${quantity}</td>
+            <td>₹${storedPrice}</td>
+            <td><span onclick="cartdata(${ind})"><i class="fa-solid fa-trash"></i></span></td>
+            `
+            hbody.appendChild(tr);
+        });
+    };
+    loaddata();
+
+    let cartdata = (ind) => {
+        let car = cart[ind]
+        console.log(car);
+
+        let result = cart.filter((val) => val.name != car.name)
+        console.log(result);
+
+        localStorage.setItem("cart", JSON.stringify(result))
+        location.reload()
+    }
+    let count = document.getElementById("count").innerHTML = cart.length;
+
+    let price = () => {
+        let qna = 0;  
+        let total = 0;
+        cart.forEach((val, ind) => {
+            let { quantity,storedPrice}=data(`${ind}`)
+            qna += +quantity;
+            total += +storedPrice;
+        });
+
+        let thead = document.getElementById("thead")
+        for (let i = 0; i < 1; i++) {
+            let tr = document.createElement("tr")
+            tr.innerHTML = `<th>Total quantity</th>
+                            <th>${qna}</th>`
+            thead.appendChild(tr)
+        }
+        for (let i = 0; i < 1; i++) {
+            let tr = document.createElement("tr")
+            tr.innerHTML = `<th>Total Rupy</th>
+            <th>₹${total}</th>`
+            thead.appendChild(tr)
+        }
+
+    }
+    price();
+
+</script>
+
 </body>
 
 </html>
