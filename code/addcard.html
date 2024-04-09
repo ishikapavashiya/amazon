@@ -335,7 +335,7 @@
     let cart = JSON.parse(localStorage.getItem("cart"));
     console.log(cart);
 
-    let loaddata = (index) => {
+    let cardfun = (index) => {
       let row = document.getElementById("row")
       cart.map((val, ind) => {
         let card = document.createElement("card")
@@ -377,7 +377,7 @@
 
     }
 
-    loaddata()
+    cardfun()
 
     let cartdata = (ind) => {
       let input = cart[ind]
@@ -404,8 +404,6 @@
   </script> -->
 
   <script>
-
-
     let cart=JSON.parse(localStorage.getItem("cart"))
     console.log(cart);
 
@@ -418,7 +416,7 @@
 
     };
 
-    let loaddata = () => {
+    let cardfun = () => {
         let hbody = document.getElementById("hbody");
         cart.map((val, ind) => {
             let { quantity,storedPrice}=data(`${ind}`)
@@ -434,7 +432,7 @@
             hbody.appendChild(tr);
         });
     };
-    loaddata();
+    cardfun();
 
     let cartdata = (ind) => {
         let car = cart[ind]
@@ -470,7 +468,6 @@
             <th>₹${total}</th>`
             thead.appendChild(tr)
         }
-
     }
     price();
 

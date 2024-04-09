@@ -310,7 +310,7 @@
     let result = JSON.parse(localStorage.getItem("product"));
     let product = result.filter((val) => val.avilabel === "ture")
 
-    let loaddata = () => {
+    let cardfun = () => {
       let row = document.getElementById("row")
       product.map((val, ind) => {
         let card = document.createElement("card")
@@ -349,7 +349,7 @@
         row.appendChild(card)
       });
     }
-    loaddata()
+    cardfun()
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let cartdata = (ind) => {
       let products = product[ind]

@@ -64,7 +64,7 @@
             localStorage.setItem("product", JSON.stringify(product))
             location.reload()
         }
-        let loaddata = () => {
+        let cardfun = () => {
             let hbody = document.getElementById("hbody")
             product.map((val, ind) => {
                 let tr = document.createElement("tr")
@@ -78,7 +78,7 @@
                 hbody.appendChild(tr)
             })
         }
-        loaddata()
+        cardfun()
         let delet = (ind) => {
             let data = product[ind]
             let res = product.filter((val) => val.name !=data.name)
@@ -86,7 +86,7 @@
             localStorage.setItem("product", JSON.stringify(res));
             location.reload();
         }
-        loaddata()
+        cardfun()
         let remove = (ind) => {
             let result = product[ind]
             let res = product.filter((val) => val.name != result.name)
@@ -145,7 +145,7 @@
             localStorage.setItem("product", JSON.stringify(product));
             location.reload()
         }
-        let loaddata = () => {
+        let cardfun = () => {
             let hbody = document.getElementById("hbody")
             product.map((val, ind) => {
                 let tr = document.createElement("tr")
@@ -159,7 +159,7 @@
                 hbody.appendChild(tr)
             })
         }
-        loaddata()
+        cardfun()
         let remove = (ind) => {
             let data = product[ind]
             let res = product.filter((val) => val.name != data.name)
@@ -190,7 +190,6 @@
                 index: document.getElementById("index").value,
             }
             console.log(data);
-
             product.splice(index, 1, data)
             localStorage.setItem("product", JSON.stringify(product))
             location.reload()
